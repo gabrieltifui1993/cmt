@@ -1,0 +1,6 @@
+#Mongo server
+mongo_url: 'localhost'
+mongo_port: 27017
+
+#Elastic server
+elastic_url: 'localhost:9200'

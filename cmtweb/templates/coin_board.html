@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/signal.css') }}">
+
+    <script src="{{ url_for('static', filename='assets/js/d3.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/d3.layout.cloud.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/d3.wordcloud.js') }}"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script>
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        coin_code = getParameterByName('coin_code');
+
+        function parseISOString(s) {
+            var b = s.split(/\D+/);
+            return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+        }
+
+        window.onload = function () {
+
+        var response;
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "http://localhost:5002/api/sentiment/"+coin_code+"/2018-04-10T00:00:12.069Z/2018-05-29T00:00:00.000Z",
+                cache: false,
+                async: false,
+                success: function(data, textStatus, xhr) {
+                    response = data
+                },
+            });
+            var sentiments = JSON.parse(response);
+
+            var sent_data = [];
+            var price_data = [];
+            for (i = 0; i < sentiments.length; i++) {
+                var date = new Date(sentiments[i]['classification_date']);
+
+                var bar_color = "#2cad08";
+                if(sentiments[i]['score'] <= 0.0) {
+                    bar_color = "#f90909";
+                }
+                var sent_instance = {label:date, x: date, y:sentiments[i]['score'], color: bar_color};
+                sent_data.push(sent_instance);
+
+                var price_instance = {label:date, x: date, y:sentiments[i]['price_usd']};
+                price_data.push(price_instance);
+        }
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            zoomEnabled:true,
+            theme: "light2",
+            axisX: {
+			    labelFormatter: function (e) {
+				    return CanvasJS.formatDate( e.value, "MM-DD hh");
+			    },
+			    labelAngle: -20
+		    },
+            data: [{
+                type: "column",
+                showInLegend: true,
+                legendMarkerColor: "grey",
+                dataPoints: sent_data
+            }]
+        });
+        chart.render();
+
+        var response;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "http://localhost:5002/api/wordcloud/"+coin_code,
+            cache: false,
+            async: false,
+            success: function(data, textStatus, xhr) {
+                response = data
+            },
+        });
+        words = JSON.parse(response)
+        words.length = 50
+        d3.wordcloud()
+            .size([600, 600])
+            .selector('#wordcloud')
+            .words(words)
+            .start();
+
+        }
+
+
+        </script>
+</head>
+<body>
+    <!-- Start Navbar -->
+    <nav class="menu">
+        <div class="container-fluid width-70">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <i class="fa fa-bars icon"></i>
+                </button>
+                <a class="navbar-brand ml--25" href="dashboard.html">Coinmarketrend</a>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Start page-signal -->
+    <div class="container pad-0-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-signal">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="signal-main-2">
+                <div class="signal-content dashboard">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="well bg-white p-46-19">
+                                <div id="influencers" ></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="well bg-white p-22-19">
+                                   <div id='wordcloud'></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="well bg-white">
+                                <div id="last_tweets"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="signal-footer">
+                <div class="footer-link mt-20">
+                    Cryptocurrency market sentiment&nbsp;
+                </div>
+                <div class="mt-15">
+                    <p>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <!--
+        Build word cloud
+    -->
+    <script>
+        coin_code = getParameterByName('coin_code');
+
+        function create_influencer_li(influencer) {
+             var url = 'https://twitter.com/' + influencer['username'];
+             influencer = '<li class="list-group-item media user-list">' +
+                          '<a class="media-left" href="#">' +
+                          '<img class="media-object user-list-image" src="https://thenextweb.com/files/2010/12/winner1.png" alt="Responsive image" /></a>'+
+                          '<div class="media-body user-list-text">' +
+                          '<a href='+url + ' target="_blank" >' + influencer['username']+'</a>'
+                          + '</div></li>';
+             return influencer
+        }
+
+        var response;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "http://localhost:5002/api/influencer/"+coin_code,
+            cache: false,
+            async: false,
+            success: function(data, textStatus, xhr) {
+                response = data
+            },
+        });
+
+        var influencers_div = ''
+        var influencers = JSON.parse(response);
+        influencers.length = 4;
+
+        for(var i = 0; i < influencers.length; i++) {
+            influencers_div += create_influencer_li(influencers[i]);
+        }
+
+        document.getElementById('influencers').innerHTML = influencers_div;
+    </script>
+    <script>
+        coin_code = getParameterByName('coin_code');
+
+         function create_tweet_li(tweet) {
+            text = tweet['text'].substring(0, tweet['text'].length / 4);
+            tweet_li = '<li class="list-group-item media user-list">' +
+                '<a class="media-left" href="#">' +
+                '<img class="media-object user-list-image" src="https://www.shareicon.net/data/256x256/2017/02/24/879396_logo_512x512.png" alt="Responsive image" /></a>' +
+                '<div class="media-body user-list-text">' +
+                text +
+                '<a href=' + tweet['url'] + ' target="_blank" >Read More</a></div></li>';
+            return tweet_li
+         }
+         var response;
+         $.ajax({
+             type: "GET",
+             contentType: "application/json",
+             url: "http://localhost:5002/api/tweets/"+coin_code,
+             cache: false,
+             async: false,
+             success: function(data, textStatus, xhr) {
+                 response = data
+             },
+         });
+         var tweets = JSON.parse(response);
+         console.log("tweets" + tweets);
+         tweets.length = 4;
+
+         tweets_div = '';
+         for (var i = 0; i < tweets.length; i++) {
+             tweets_div += create_tweet_li(tweets[i]);
+         }
+
+         console.log(tweets_div);
+         document.getElementById('last_tweets').innerHTML = tweets_div;
+
+    </script>
+</body>
+</html>

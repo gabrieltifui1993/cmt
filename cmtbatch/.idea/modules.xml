@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/cmtbatch.iml" filepath="$PROJECT_DIR$/.idea/cmtbatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cmtcorpus/.idea/cmtcorpus.iml" filepath="$PROJECT_DIR$/../cmtcorpus/.idea/cmtcorpus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cmtrest/.idea/cmtrest.iml" filepath="$PROJECT_DIR$/../cmtrest/.idea/cmtrest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cmtweb/.idea/cmtweb.iml" filepath="$PROJECT_DIR$/../cmtweb/.idea/cmtweb.iml" />
+    </modules>
+  </component>
+</project>

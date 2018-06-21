@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bitcoin</title>
+    <link rel="stylesheet" href="">
+    <meta name="keyword" content="html,css,onezero">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/signal.css') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+</head>
+
+<body>
+    <!-- Start Navbar -->
+    <nav class="menu">
+        <div class="container-fluid width-70">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <i class="fa fa-bars icon"></i>
+                </button>
+                <a class="navbar-brand ml--25" href="dashboard.html">Coinmarketrend</a>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Start page-signal -->
+    <div class="container pad-0-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-signal">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="signal-main-2">
+                <div class="signal-content dashboard">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="well bg-white" style="padding:0px!important">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <div id="chart_div" class="embed-responsive-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="well bg-white p-46-19">
+                                <li class="list-group-item media user-list">
+                                    <a class="media-left" href="#">
+                                        <img class="media-object user-list-image" src="assets\img\user.png" alt="Responsive image" />
+                                    </a>
+                                    <div class="media-body user-list-text">
+                                        Text1
+                                        <br> Text2
+                                    </div>
+                                </li>
+                                <li class="list-group-item media user-list">
+                                    <a class="media-left" href="#">
+                                        <img class="media-object user-list-image" src="assets\img\user.png" alt="Responsive image" />
+                                    </a>
+                                    <div class="media-body user-list-text">
+                                        Text4
+                                        <br> Text5
+                                    </div>
+                                </li>
+                                <li class="list-group-item media user-list">
+                                    <a class="media-left" href="#">
+                                        <img class="media-object user-list-image" src="assets\img\user.png" alt="Responsive image" />
+                                    </a>
+                                    <div class="media-body user-list-text">
+                                        Text7
+                                        <br> Text8
+                                    </div>
+                                </li>
+                                <li class="list-group-item media user-list">
+                                    <a class="media-left" href="#">
+                                        <img class="media-object user-list-image" src="assets\img\user.png" alt="Responsive image" />
+                                    </a>
+                                    <div class="media-body user-list-text">
+                                        Text7
+                                        <br> Text8
+                                    </div>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="well bg-white p-22-19">
+                                <img src="assets/img/demo.jpg" width="100%">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="well bg-white">
+                                We all know how hard it can be to make a site look like the demo, so to make your start into the world of X as easy as possible
+                                we have included the demo content from our showcase site. Simply import the sample files
+                                we ship with the theme and the core structure for your site is already built. Keep in mind
+                                that even if you don’t use the demo content, you’ll be much better off than with most other
+                                themes since all of the customization options are done right from within the WordPress Customizer
+                                making it super easy to configure your site as compared to most of the typical admin panels.
+                                You will be pleasantly surprised how easy it is to setup and configure your site with X –
+                                with or without the demo content.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="signal-footer">
+                <div class="footer-link mt-20">
+                    Cryptocurrency market sentiment&nbsp;
+                </div>
+                <div class="mt-15">
+                    <p>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End page-signal -->
+
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <!-- <script src="assets/js/poper.min.js"></script>	 -->
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/select2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/perfect-scrollbar.min.js') }}"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            var ps = new PerfectScrollbar(this);
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+     <script>
+        $(document).ready(function() {
+            var response;
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "http://localhost:5002/api/sentiment/eos/2018-03-01T00:00:12.069Z/2018-05-29T00:00:00.000Z",
+                cache: false,
+                async: false,
+                success: function(data, textStatus, xhr) {
+                    response = data
+                },
+            });
+            var sentiments = JSON.parse(response);
+
+            var chart_data = [];
+            for (i = 0; i < sentiments.length; i++) {
+                var instance = []
+                var date = moment(sentiments[i]['classification_date']);
+                instance[0] = moment(date);
+                console.log(moment(date));
+                instance[1] = sentiments[i]['score'];
+                chart_data.push(instance);
+            }
+
+            console.log(chart_data);
+            google.charts.load('current', {
+                packages: ['corechart', 'line']
+            });
+
+            google.charts.setOnLoadCallback(drawBasic);
+
+            function drawBasic() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Time');
+                data.addColumn('number', 'Sentiment');
+
+                data.addRows(chart_data);
+
+                var options = {
+                    hAxis: {
+                        title: 'Time'
+                    },
+                    vAxis: {
+                        title: 'Sentiment',
+                    },
+                    explorer: {
+                        actions: ['dragToZoom', 'rightClickToReset'],
+                        axis: 'horizontal',
+                        keepInBounds: true,
+                        maxZoomIn: 4.0
+                    },
+                    legend: {position: 'none'}
+                };
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+</body>
+
+</html>

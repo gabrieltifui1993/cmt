@@ -1,0 +1,28 @@
+path: /corpus/
+
+corpus:
+  - class:
+      name: positive
+      documents:
+        - corpus/positive_tweets.csv
+        - corpus/positive.csv
+  - class:
+      name: negative
+      documents:
+        - corpus/negative_tweets.csv
+        - corpus/negative.csv
+  - class:
+      name: mixed
+      documents:
+        - corpus/mixed_tweets.csv
+
+classifiers:
+  - algorithm:
+      name: NaiveBayes
+      file: classifier\trained_algs\naive_bayes.pickle
+  - algorithm:
+      name: SVM
+      file: classifier\trained_algs\svm.pickle
+  - algorithm:
+      name: MultinomialNB
+      file: classifier\trained_algs\multinomialnb.pickle
